@@ -1,0 +1,30 @@
+[14:04:02.250] P4 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=MATCH server=13.61.180.113:9000
+[14:04:02.302] P4 | START     | INFO    | league start: 45 matches
+[14:05:37.862] P4 | MATCH     | INFO    | G28 side=A vs P9
+[14:05:44.472] P4 | VERIFY    | SUCCESS | G28 10 rounds: hash · card · score ok
+[14:05:44.472] P4 | RESULT    | INFO    | G28 WIN_B me 16:39 -> L
+[14:05:51.766] P4 | MATCH     | INFO    | G24 side=A vs P5
+[14:05:58.315] P4 | VERIFY    | SUCCESS | G24 10 rounds: hash · card · score ok
+[14:05:58.315] P4 | RESULT    | INFO    | G24 WIN_B me 10:45 -> L
+[14:06:25.657] P4 | MATCH     | INFO    | G17 side=B vs P3
+[14:06:31.914] P4 | VERIFY    | SUCCESS | G17 10 rounds: hash · card · score ok
+[14:06:31.924] P4 | RESULT    | INFO    | G17 DRAW me 0:0 -> D
+[14:07:26.385] P4 | MATCH     | INFO    | G27 side=A vs P8
+[14:07:32.601] P4 | VERIFY    | SUCCESS | G27 10 rounds: hash · card · score ok
+[14:07:32.601] P4 | RESULT    | INFO    | G27 WIN_A me 17:13 -> W
+[14:07:39.438] P4 | MATCH     | INFO    | G29 side=A vs P10
+[14:07:45.641] P4 | VERIFY    | SUCCESS | G29 10 rounds: hash · card · score ok
+[14:07:45.641] P4 | RESULT    | INFO    | G29 WIN_B me 17:38 -> L
+[14:07:45.942] P4 | MATCH     | INFO    | G25 side=A vs P6
+[14:07:52.570] P4 | VERIFY    | SUCCESS | G25 10 rounds: hash · card · score ok
+[14:07:52.571] P4 | RESULT    | INFO    | G25 WIN_B me 10:45 -> L
+[14:08:12.980] P4 | MATCH     | INFO    | G02 side=B vs P1
+[14:08:19.270] P4 | VERIFY    | SUCCESS | G02 10 rounds: hash · card · score ok
+[14:08:19.270] P4 | RESULT    | INFO    | G02 WIN_B me 26:17 -> W
+[14:08:19.575] P4 | MATCH     | INFO    | G10 side=B vs P2
+[14:08:25.787] P4 | VERIFY    | SUCCESS | G10 10 rounds: hash · card · score ok
+[14:08:25.787] P4 | RESULT    | INFO    | G10 WIN_A me 19:23 -> L
+[14:08:39.423] P4 | MATCH     | INFO    | G26 side=A vs P7
+[14:08:45.655] P4 | VERIFY    | SUCCESS | G26 10 rounds: hash · card · score ok
+[14:08:45.656] P4 | RESULT    | INFO    | G26 WIN_B me 27:28 -> L
+[14:09:05.650] P4 | TERMINATE | SUCCESS | rank=7 pts=7 W2 D1 L6

@@ -1,0 +1,101 @@
+HW#5 Card Duel League — AllDefinedLogs.txt (모든 로그 메시지 명세)
+
+공통 형식   [HH:MM:SS.mmm] NODE | EVENT     | STATUS  | message
+  - 시각: KST(UTC+9), 밀리초까지. Server(EC2)·Player·Crasher 모두 같은 시간대로 기록한다(EC2 OS 시계는 UTC).
+  - NODE = SERVER · Pk(P1~P10) · CRASHER,  STATUS = SUCCESS · FAIL · INFO · WARN
+  - EVENT 칸은 9자, STATUS 칸은 7자 폭으로 맞춘다.  * 표시 = HW5description 9-3의 필수 줄(앞부분 형식 고정)
+  - 매 판(라운드)은 로그에 쓰지 않는다 → RunX_match_log.txt 의 R 줄에 기록.
+
+====================================================================================================
+1. SERVER  (RunX_League.txt)
+====================================================================================================
+EVENT     STATUS   message                                                                    언제
+INIT      SUCCESS  seed=S tables=M timeout=Tms run=X listen 0.0.0.0:PORT                     인자 확인 후 listen
+CONNECT   SUCCESS  Pk strategy=STRAT from IP:PORT (n/10)                                      HELLO 확인 → WELCOME 송신
+CONNECT   FAIL     bad or duplicate HELLO '<line>' from IP:PORT                               잘못된/중복 HELLO (연결 닫음)
+START     INFO     45 matches, M tables                                                       10명 모두 접속 → START 45 송신
+*MATCH    INFO     Gxx Pa(STRAT) vs Pb(STRAT) table=t                                         Table t가 경기 배정 · MATCH 송신
+*RESULT   SUCCESS  Gxx Pa sA:sB Pb OUTCOME confirm=X/Y NNNNms                                 CONFIRM 처리 끝 (X·Y ∈ OK·NO·DISPUTE·-)
+                    OUTCOME ∈ WIN_A · WIN_B · DRAW · FORFEIT_A · FORFEIT_B · FORFEIT_BOTH
+                    NNNN = MATCH 송신 ~ CONFIRM 처리 끝 (경기 시간)
+*FORFEIT  WARN     Gxx Pa vs Pb round=r forfeit=WHO reason=R                                  몰수(r≥1) · 부전패(r=0)
+                    WHO ∈ A · B · BOTH,  R ∈ TIMEOUT · BAD_MSG · BAD_HASH · BAD_CARD · DISCONNECT,
+                    BOTH면 사유A+사유B (예: TIMEOUT+DISCONNECT, 두 선수 모두 DEAD면 DISCONNECT)
+*DISCONN  WARN     Pk QUIT (virtual disconnect) in Gxx -> DEAD                                 경기 중 QUIT mid 수신
+DISCONN   WARN     Pk QUIT (TCP connection lost) in Gxx -> DEAD                                실제 TCP 끊김(예외 상황)
+STALE     WARN     Pk dropped '<line>' (waiting KIND mid)                                      종류 · mid · r이 다른 줄(늦게 온 줄) 버림
+*REJOIN   INFO     Pk rejoined (waiting KIND mid [r])                                          crash 복귀한 Player의 REJOIN 수신 (로그만)
+TABLE     INFO     table t exit: matches=n busy=x.xxs lobby_wait=y.yys                       배정할 경기가 없어 Table Thread 종료
+*SAVE     SUCCESS  RunX_results.txt hash=h8 RunX_standings.txt hash=h8                        join 후 Lock 밖에서 파일 3개 저장
+STAT      INFO     Elapsed x.xxs (START -> 45th match end), tables=M                          9-5 성능 지표 (종료 직전)
+STAT      INFO     Match time avg a max b min c, avg concurrency k
+STAT      INFO     Tablet: matches=n busy=x util=u% lobby_wait=w
+STAT      INFO     Round latency (ROUND -> both COMMIT) avg a max b (n=N)
+STAT      INFO     Outcomes ... | forfeit REASON=n ... walkover=n | stale=n rejoin=n
+STAT      INFO     CONFIRM OK=n NO=n DISPUTE=n -=n
+STAT      INFO     By strategy STRAT Ww Dd Ll avg score | ...
+TERMINATE SUCCESS  45 matches in x.xxs, avg concurrency k, stale n, tables joined              LEAGUE_END · BYE 송신 후 종료
+
+흐름: INIT → CONNECT×10 → START → (MATCH → [FORFEIT · DISCONN · STALE · REJOIN] → RESULT)×45 → TABLE×M → SAVE → STAT → TERMINATE
+
+====================================================================================================
+2. PLAYER Pk  (RunX_Pk.txt)
+====================================================================================================
+CONNECT   SUCCESS  WELCOME seed=S timeout=Tms strategy=STRAT server=HOST:PORT [fault=kind@mid,r]
+CONNECT   FAIL     no WELCOME (...)
+START     INFO     league start: 45 matches
+MATCH     INFO     Gxx side=A|B vs Pn                                                          MATCH 수신, 새 Bot 생성
+VERIFY    SUCCESS  Gxx n rounds: hash · card · score ok                                         MATCH_END 때 매 판 검증이 모두 맞음
+VERIFY    FAIL     Gxx r=n <opponent hash | my card | winner/score> mismatch: <line>             상대 hash · 판정 · 누적 점수 불일치
+VERIFY    FAIL     Gxx MATCH_END OUTCOME a:b != mine OUTCOME c:d
+FORFEIT   WARN     Gxx forfeit=WHO reason=R                                                     FORFEIT 수신
+RESULT    INFO     Gxx OUTCOME me x:y -> W|D|L                                                  MATCH_END 수신 → CONFIRM 송신
+FAULT     WARN     Gxx r=n slow: sleep (timeout+1000)ms before COMMIT                           Run C 고장 (--fault)
+FAULT     WARN     Gxx r=n badcard: COMMIT/REVEAL card 11 (not in hand)
+FAULT     WARN     Gxx r=n badhash: COMMIT card c, REVEAL card c'
+FAULT     WARN     Gxx r=n QUIT sent (virtual disconnect, socket kept open)
+*CRASH    WARN     Gxx r=n last=L (now) | (pending, received while IDLE)                        crash를 실제로 적용한 순간 (한 번만)
+                    n = 마지막으로 받은 ROUND의 r(없으면 0), L = 마지막으로 보낸 종류(COMMIT·REVEAL·CONFIRM, 없으면 -)
+CRASH     INFO     received while IDLE -> apply at next MATCH                                   쉬는 중 받은 CRASH (미뤄 둠)
+*QUIT     WARN     Gxx r=n last=L QUIT sent (now, socket kept open) | (pending, ...)             Crasher의 QUIT 실행
+QUIT      INFO     received while IDLE -> apply at next MATCH
+*REJOIN   INFO     REJOIN sent, dropped N buffered line(s), wait for next MATCH                 RESTART 후 복귀
+*TERMINATE SUCCESS rank=r pts=p Ww Dd Ll                                                        LEAGUE_END · BYE 수신 후 종료
+*TERMINATE WARN    left at Gxx (virtual disconnect) Ww Dd Ll                                    QUIT한 Player가 BYE 받고 종료
+TERMINATE WARN     BYE received while CRASHED (no LEAGUE_END) Ww Dd Ll                          리그 끝까지 crash 상태였을 때
+TERMINATE FAIL     server closed connection
+
+====================================================================================================
+3. CRASHER  (RunD_Crasher.txt, Run D만)
+====================================================================================================
+*PLAN      INFO    seed=S events=F (crash C, quit Q) = x.x% of 45  kinds=...  triggers(finished)=[...]
+CONNECT    SUCCESS Pk (n/10)                                                                    CTRL Pk 수신
+*CRASH     WARN    #n Pk (PLAYING Gxx) finished≈f                                               CRASH 명령 송신
+*QUIT      WARN    #n Pk (PLAYING Gxx) finished≈f                                               QUIT 명령 송신
+*CRASH_ACK INFO    #n Pk crashed in Gxx                                                         STATE Pk CRASHED 수신 (4~5초 타이머 시작)
+*RESTART   INFO    #n Pk after d.dds                                                            RESTART 송신 (4.00 ~ 5.00)
+*REJOINED  INFO    #n Pk back to IDLE                                                           복귀 후 STATE Pk IDLE 수신
+*QUIT_ACK  INFO    #n Pk reported QUIT                                                          STATE Pk QUIT 수신
+*SUMMARY   INFO    fired F/F events: crash C, quit Q  (x.x% of 45)
+*TERMINATE SUCCESS all players ended                                                            10명 모두 STATE END
+
+====================================================================================================
+4. 결과 파일 (Server Main이 45경기 후 Lock 밖에서 저장, LF)
+====================================================================================================
+RunX_results.txt     mid(2자리) PA PB sA:sB OUTCOME            (45줄, mid 순서)
+RunX_standings.txt   순위 Pk W D L PTS GF GA                     (10줄, 승점 → 득실차 → 득점 → 번호)
+RunX_match_log.txt   LEAGUE seed=S tables=M
+                     MATCH mid PA PB table=t t=초(START 기준)
+                     R mid r 상금 cA nA hA cB nB hB winner sA sB  (판마다)
+                     F mid r WHO REASON                           (몰수 r≥1 / 부전패 r=0)
+                     END mid OUTCOME sA:sB t=초
+
+====================================================================================================
+5. 메시지 (줄 단위 ASCII, LF) — Server ↔ Player / Player ↔ Crasher
+====================================================================================================
+P→S HELLO Pk STRATEGY · COMMIT mid r hash64 · REVEAL mid r card nonce16 · CONFIRM mid sA:sB · QUIT mid · REJOIN Pk
+S→P WELCOME Pk seed timeout_ms · START 45 · MATCH mid side Popp · ROUND mid r prize · COMMITS mid r hA hB ·
+    REVEALS mid r cA nA cB nB winner sA sB · FORFEIT mid who reason · MATCH_END mid outcome sA sB ·
+    LEAGUE_END rank pts · BYE
+P→C CTRL Pk · STATE Pk PLAYING mid · STATE Pk IDLE · STATE Pk CRASHED mid · STATE Pk QUIT · STATE Pk END
+C→P CRASH · RESTART · QUIT

@@ -1,0 +1,30 @@
+[14:11:28.012] P9 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=TEAM server=13.61.180.113:9000
+[14:11:28.013] P9 | START     | INFO    | league start: 45 matches
+[14:11:28.014] P9 | MATCH     | INFO    | G42 side=B vs P8
+[14:11:34.379] P9 | VERIFY    | SUCCESS | G42 10 rounds: hash · card · score ok
+[14:11:34.379] P9 | RESULT    | INFO    | G42 WIN_B me 40:6 -> W
+[14:11:34.730] P9 | MATCH     | INFO    | G07 side=B vs P1
+[14:11:41.104] P9 | VERIFY    | SUCCESS | G07 10 rounds: hash · card · score ok
+[14:11:41.104] P9 | RESULT    | INFO    | G07 WIN_B me 27:10 -> W
+[14:11:42.050] P9 | MATCH     | INFO    | G40 side=B vs P7
+[14:11:43.958] P9 | FORFEIT   | WARN    | G40 forfeit=A reason=BAD_HASH
+[14:11:43.958] P9 | RESULT    | INFO    | G40 FORFEIT_A me 55:0 -> W
+[14:11:46.642] P9 | MATCH     | INFO    | G44 side=A vs P10
+[14:11:53.020] P9 | VERIFY    | SUCCESS | G44 10 rounds: hash · card · score ok
+[14:11:53.020] P9 | RESULT    | INFO    | G44 DRAW me 0:0 -> D
+[14:11:54.236] P9 | MATCH     | INFO    | G28 side=B vs P4
+[14:12:00.642] P9 | VERIFY    | SUCCESS | G28 10 rounds: hash · card · score ok
+[14:12:00.643] P9 | RESULT    | INFO    | G28 WIN_B me 39:16 -> W
+[14:12:02.242] P9 | MATCH     | INFO    | G33 side=B vs P5
+[14:12:09.025] P9 | VERIFY    | SUCCESS | G33 10 rounds: hash · card · score ok
+[14:12:09.025] P9 | RESULT    | INFO    | G33 WIN_B me 32:15 -> W
+[14:12:13.311] P9 | MATCH     | INFO    | G15 side=B vs P2
+[14:12:19.686] P9 | VERIFY    | SUCCESS | G15 10 rounds: hash · card · score ok
+[14:12:19.686] P9 | RESULT    | INFO    | G15 WIN_B me 45:10 -> W
+[14:12:20.050] P9 | MATCH     | INFO    | G37 side=B vs P6
+[14:12:26.427] P9 | VERIFY    | SUCCESS | G37 10 rounds: hash · card · score ok
+[14:12:26.427] P9 | RESULT    | INFO    | G37 WIN_B me 29:14 -> W
+[14:12:27.937] P9 | MATCH     | INFO    | G22 side=B vs P3
+[14:12:34.381] P9 | VERIFY    | SUCCESS | G22 10 rounds: hash · card · score ok
+[14:12:34.381] P9 | RESULT    | INFO    | G22 WIN_B me 37:16 -> W
+[14:12:34.694] P9 | TERMINATE | SUCCESS | rank=1 pts=25 W8 D1 L0

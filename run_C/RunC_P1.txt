@@ -1,0 +1,30 @@
+[14:11:27.924] P1 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=RANDOM server=13.61.180.113:9000
+[14:11:28.011] P1 | START     | INFO    | league start: 45 matches
+[14:11:28.013] P1 | MATCH     | INFO    | G02 side=A vs P4
+[14:11:34.419] P1 | VERIFY    | SUCCESS | G02 10 rounds: hash · card · score ok
+[14:11:34.419] P1 | RESULT    | INFO    | G02 WIN_B me 17:26 -> L
+[14:11:34.729] P1 | MATCH     | INFO    | G07 side=A vs P9
+[14:11:41.103] P1 | VERIFY    | SUCCESS | G07 10 rounds: hash · card · score ok
+[14:11:41.103] P1 | RESULT    | INFO    | G07 WIN_B me 10:27 -> L
+[14:11:44.265] P1 | MATCH     | INFO    | G05 side=A vs P7
+[14:11:50.645] P1 | VERIFY    | SUCCESS | G05 10 rounds: hash · card · score ok
+[14:11:50.645] P1 | RESULT    | INFO    | G05 WIN_A me 28:27 -> W
+[14:11:50.954] P1 | MATCH     | INFO    | G06 side=A vs P8
+[14:11:51.284] P1 | FORFEIT   | WARN    | G06 forfeit=B reason=DISCONNECT
+[14:11:51.285] P1 | RESULT    | INFO    | G06 FORFEIT_B me 55:0 -> W
+[14:11:52.212] P1 | MATCH     | INFO    | G00 side=A vs P2
+[14:11:58.586] P1 | VERIFY    | SUCCESS | G00 10 rounds: hash · card · score ok
+[14:11:58.586] P1 | RESULT    | INFO    | G00 WIN_B me 20:28 -> L
+[14:11:59.966] P1 | MATCH     | INFO    | G08 side=A vs P10
+[14:12:06.362] P1 | VERIFY    | SUCCESS | G08 10 rounds: hash · card · score ok
+[14:12:06.363] P1 | RESULT    | INFO    | G08 WIN_B me 21:25 -> L
+[14:12:06.671] P1 | MATCH     | INFO    | G04 side=A vs P6
+[14:12:13.054] P1 | VERIFY    | SUCCESS | G04 10 rounds: hash · card · score ok
+[14:12:13.054] P1 | RESULT    | INFO    | G04 WIN_B me 23:28 -> L
+[14:12:14.425] P1 | MATCH     | INFO    | G01 side=A vs P3
+[14:12:20.865] P1 | VERIFY    | SUCCESS | G01 10 rounds: hash · card · score ok
+[14:12:20.865] P1 | RESULT    | INFO    | G01 WIN_B me 13:30 -> L
+[14:12:27.159] P1 | MATCH     | INFO    | G03 side=A vs P5
+[14:12:33.933] P1 | VERIFY    | SUCCESS | G03 10 rounds: hash · card · score ok
+[14:12:33.933] P1 | RESULT    | INFO    | G03 WIN_B me 14:32 -> L
+[14:12:34.693] P1 | TERMINATE | SUCCESS | rank=9 pts=6 W2 D0 L7

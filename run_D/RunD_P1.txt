@@ -1,0 +1,23 @@
+[14:17:25.451] P1 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=RANDOM server=13.61.180.113:9000
+[14:17:25.524] P1 | START     | INFO    | league start: 45 matches
+[14:17:25.525] P1 | MATCH     | INFO    | G05 side=A vs P7
+[14:17:31.924] P1 | VERIFY    | SUCCESS | G05 10 rounds: hash · card · score ok
+[14:17:31.924] P1 | RESULT    | INFO    | G05 WIN_A me 28:27 -> W
+[14:17:38.652] P1 | MATCH     | INFO    | G03 side=A vs P5
+[14:17:38.980] P1 | CRASH     | WARN    | G03 r=1 last=COMMIT (now)
+[14:17:43.482] P1 | REJOIN    | INFO    | REJOIN sent, dropped 3 buffered line(s), wait for next MATCH
+[14:17:44.992] P1 | MATCH     | INFO    | G00 side=A vs P2
+[14:17:51.398] P1 | VERIFY    | SUCCESS | G00 10 rounds: hash · card · score ok
+[14:17:51.399] P1 | RESULT    | INFO    | G00 WIN_B me 20:28 -> L
+[14:17:52.154] P1 | MATCH     | INFO    | G06 side=A vs P8
+[14:17:58.631] P1 | VERIFY    | SUCCESS | G06 10 rounds: hash · card · score ok
+[14:17:58.631] P1 | RESULT    | INFO    | G06 WIN_B me 8:26 -> L
+[14:17:59.309] P1 | MATCH     | INFO    | G01 side=A vs P3
+[14:18:05.730] P1 | VERIFY    | SUCCESS | G01 10 rounds: hash · card · score ok
+[14:18:05.731] P1 | RESULT    | INFO    | G01 WIN_B me 13:30 -> L
+[14:18:06.041] P1 | MATCH     | INFO    | G02 side=A vs P4
+[14:18:12.451] P1 | VERIFY    | SUCCESS | G02 10 rounds: hash · card · score ok
+[14:18:12.451] P1 | RESULT    | INFO    | G02 WIN_B me 17:26 -> L
+[14:18:18.885] P1 | MATCH     | INFO    | G04 side=A vs P6
+[14:18:20.324] P1 | QUIT      | WARN    | G04 r=3 last=COMMIT QUIT sent (now, socket kept open)
+[14:18:47.279] P1 | TERMINATE | WARN    | left at G04 (virtual disconnect) W1 D0 L4

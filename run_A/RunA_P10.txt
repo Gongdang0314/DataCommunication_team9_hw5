@@ -1,0 +1,30 @@
+[14:04:02.289] P10 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=TEAM server=13.61.180.113:9000
+[14:04:02.312] P10 | START     | INFO    | league start: 45 matches
+[14:04:16.109] P10 | MATCH     | INFO    | G43 side=B vs P8
+[14:04:22.583] P10 | VERIFY    | SUCCESS | G43 10 rounds: hash · card · score ok
+[14:04:22.583] P10 | RESULT    | INFO    | G43 WIN_B me 48:7 -> W
+[14:04:36.617] P10 | MATCH     | INFO    | G08 side=B vs P1
+[14:04:43.107] P10 | VERIFY    | SUCCESS | G08 10 rounds: hash · card · score ok
+[14:04:43.107] P10 | RESULT    | INFO    | G08 WIN_B me 25:21 -> W
+[14:04:56.850] P10 | MATCH     | INFO    | G38 side=B vs P6
+[14:05:03.322] P10 | VERIFY    | SUCCESS | G38 10 rounds: hash · card · score ok
+[14:05:03.323] P10 | RESULT    | INFO    | G38 WIN_B me 40:15 -> W
+[14:06:12.314] P10 | MATCH     | INFO    | G44 side=B vs P9
+[14:06:18.781] P10 | VERIFY    | SUCCESS | G44 10 rounds: hash · card · score ok
+[14:06:18.782] P10 | RESULT    | INFO    | G44 DRAW me 0:0 -> D
+[14:06:59.360] P10 | MATCH     | INFO    | G41 side=B vs P7
+[14:07:05.997] P10 | VERIFY    | SUCCESS | G41 10 rounds: hash · card · score ok
+[14:07:05.997] P10 | RESULT    | INFO    | G41 WIN_B me 49:6 -> W
+[14:07:39.438] P10 | MATCH     | INFO    | G29 side=B vs P4
+[14:07:45.642] P10 | VERIFY    | SUCCESS | G29 10 rounds: hash · card · score ok
+[14:07:45.642] P10 | RESULT    | INFO    | G29 WIN_B me 38:17 -> W
+[14:07:59.637] P10 | MATCH     | INFO    | G34 side=B vs P5
+[14:08:05.944] P10 | VERIFY    | SUCCESS | G34 10 rounds: hash · card · score ok
+[14:08:05.945] P10 | RESULT    | INFO    | G34 WIN_B me 36:17 -> W
+[14:08:26.088] P10 | MATCH     | INFO    | G16 side=B vs P2
+[14:08:32.180] P10 | VERIFY    | SUCCESS | G16 10 rounds: hash · card · score ok
+[14:08:32.180] P10 | RESULT    | INFO    | G16 WIN_B me 32:23 -> W
+[14:08:59.101] P10 | MATCH     | INFO    | G23 side=B vs P3
+[14:09:05.347] P10 | VERIFY    | SUCCESS | G23 10 rounds: hash · card · score ok
+[14:09:05.347] P10 | RESULT    | INFO    | G23 WIN_B me 36:13 -> W
+[14:09:05.651] P10 | TERMINATE | SUCCESS | rank=2 pts=25 W8 D1 L0

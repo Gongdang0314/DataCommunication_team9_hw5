@@ -1,0 +1,31 @@
+[14:11:28.020] P5 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=PLUS1 server=13.61.180.113:9000 fault=badcard@30,7
+[14:11:28.038] P5 | START     | INFO    | league start: 45 matches
+[14:11:34.626] P5 | MATCH     | INFO    | G11 side=B vs P2
+[14:11:39.666] P5 | FORFEIT   | WARN    | G11 forfeit=A reason=TIMEOUT
+[14:11:39.666] P5 | RESULT    | INFO    | G11 FORFEIT_A me 55:0 -> W
+[14:11:41.394] P5 | MATCH     | INFO    | G30 side=A vs P6
+[14:11:45.465] P5 | FAULT     | WARN    | G30 r=7 badcard: COMMIT/REVEAL card 11 (not in hand)
+[14:11:46.143] P5 | FORFEIT   | WARN    | G30 forfeit=A reason=BAD_CARD
+[14:11:46.143] P5 | RESULT    | INFO    | G30 FORFEIT_A me 0:55 -> L
+[14:11:46.472] P5 | MATCH     | INFO    | G24 side=B vs P4
+[14:11:53.252] P5 | VERIFY    | SUCCESS | G24 10 rounds: hash · card · score ok
+[14:11:53.253] P5 | RESULT    | INFO    | G24 WIN_B me 45:10 -> W
+[14:11:53.582] P5 | MATCH     | INFO    | G32 side=A vs P8
+[14:11:53.932] P5 | FORFEIT   | WARN    | G32 forfeit=B reason=DISCONNECT
+[14:11:53.932] P5 | RESULT    | INFO    | G32 FORFEIT_B me 55:0 -> W
+[14:11:55.135] P5 | MATCH     | INFO    | G18 side=B vs P3
+[14:12:01.926] P5 | VERIFY    | SUCCESS | G18 10 rounds: hash · card · score ok
+[14:12:01.926] P5 | RESULT    | INFO    | G18 WIN_B me 45:10 -> W
+[14:12:02.267] P5 | MATCH     | INFO    | G33 side=A vs P9
+[14:12:09.049] P5 | VERIFY    | SUCCESS | G33 10 rounds: hash · card · score ok
+[14:12:09.050] P5 | RESULT    | INFO    | G33 WIN_B me 15:32 -> L
+[14:12:09.378] P5 | MATCH     | INFO    | G31 side=A vs P7
+[14:12:16.155] P5 | VERIFY    | SUCCESS | G31 10 rounds: hash · card · score ok
+[14:12:16.155] P5 | RESULT    | INFO    | G31 WIN_A me 39:16 -> W
+[14:12:20.075] P5 | MATCH     | INFO    | G34 side=A vs P10
+[14:12:26.856] P5 | VERIFY    | SUCCESS | G34 10 rounds: hash · card · score ok
+[14:12:26.857] P5 | RESULT    | INFO    | G34 WIN_B me 17:36 -> L
+[14:12:27.185] P5 | MATCH     | INFO    | G03 side=B vs P1
+[14:12:33.959] P5 | VERIFY    | SUCCESS | G03 10 rounds: hash · card · score ok
+[14:12:33.959] P5 | RESULT    | INFO    | G03 WIN_B me 32:14 -> W
+[14:12:34.719] P5 | TERMINATE | SUCCESS | rank=4 pts=18 W6 D0 L3

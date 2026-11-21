@@ -1,0 +1,27 @@
+[14:17:25.491] P4 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=MATCH server=13.61.180.113:9000
+[14:17:25.521] P4 | START     | INFO    | league start: 45 matches
+[14:17:32.100] P4 | MATCH     | INFO    | G25 side=A vs P6
+[14:17:38.346] P4 | VERIFY    | SUCCESS | G25 10 rounds: hash · card · score ok
+[14:17:38.347] P4 | RESULT    | INFO    | G25 WIN_B me 10:45 -> L
+[14:17:38.988] P4 | MATCH     | INFO    | G29 side=A vs P10
+[14:17:45.436] P4 | VERIFY    | SUCCESS | G29 10 rounds: hash · card · score ok
+[14:17:45.436] P4 | RESULT    | INFO    | G29 WIN_B me 17:38 -> L
+[14:17:45.840] P4 | MATCH     | INFO    | G17 side=B vs P3
+[14:17:52.255] P4 | VERIFY    | SUCCESS | G17 10 rounds: hash · card · score ok
+[14:17:52.255] P4 | RESULT    | INFO    | G17 DRAW me 0:0 -> D
+[14:17:58.941] P4 | MATCH     | INFO    | G28 side=A vs P9
+[14:18:05.207] P4 | VERIFY    | SUCCESS | G28 10 rounds: hash · card · score ok
+[14:18:05.207] P4 | RESULT    | INFO    | G28 WIN_B me 16:39 -> L
+[14:18:06.037] P4 | MATCH     | INFO    | G02 side=B vs P1
+[14:18:12.242] P4 | CRASH     | WARN    | G02 r=10 last=REVEAL (now)
+[14:18:16.567] P4 | REJOIN    | INFO    | REJOIN sent, dropped 4 buffered line(s), wait for next MATCH
+[14:18:27.182] P4 | MATCH     | INFO    | G27 side=A vs P8
+[14:18:33.658] P4 | VERIFY    | SUCCESS | G27 10 rounds: hash · card · score ok
+[14:18:33.658] P4 | RESULT    | INFO    | G27 WIN_A me 17:13 -> W
+[14:18:33.972] P4 | MATCH     | INFO    | G24 side=A vs P5
+[14:18:40.442] P4 | VERIFY    | SUCCESS | G24 10 rounds: hash · card · score ok
+[14:18:40.442] P4 | RESULT    | INFO    | G24 WIN_B me 10:45 -> L
+[14:18:40.755] P4 | MATCH     | INFO    | G10 side=B vs P2
+[14:18:46.973] P4 | VERIFY    | SUCCESS | G10 10 rounds: hash · card · score ok
+[14:18:46.973] P4 | RESULT    | INFO    | G10 WIN_A me 19:23 -> L
+[14:18:47.274] P4 | TERMINATE | SUCCESS | rank=7 pts=7 W1 D1 L5

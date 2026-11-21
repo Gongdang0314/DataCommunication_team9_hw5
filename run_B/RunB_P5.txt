@@ -1,0 +1,30 @@
+[14:09:36.587] P5 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=PLUS1 server=13.61.180.113:9000
+[14:09:36.647] P5 | START     | INFO    | league start: 45 matches
+[14:09:36.648] P5 | MATCH     | INFO    | G24 side=B vs P4
+[14:09:43.136] P5 | VERIFY    | SUCCESS | G24 10 rounds: hash · card · score ok
+[14:09:43.136] P5 | RESULT    | INFO    | G24 WIN_B me 45:10 -> W
+[14:09:43.506] P5 | MATCH     | INFO    | G34 side=A vs P10
+[14:09:49.850] P5 | VERIFY    | SUCCESS | G34 10 rounds: hash · card · score ok
+[14:09:49.850] P5 | RESULT    | INFO    | G34 WIN_B me 17:36 -> L
+[14:09:50.158] P5 | MATCH     | INFO    | G18 side=B vs P3
+[14:09:56.321] P5 | VERIFY    | SUCCESS | G18 10 rounds: hash · card · score ok
+[14:09:56.322] P5 | RESULT    | INFO    | G18 WIN_B me 45:10 -> W
+[14:10:03.448] P5 | MATCH     | INFO    | G03 side=B vs P1
+[14:10:09.747] P5 | VERIFY    | SUCCESS | G03 10 rounds: hash · card · score ok
+[14:10:09.747] P5 | RESULT    | INFO    | G03 WIN_B me 32:14 -> W
+[14:10:10.340] P5 | MATCH     | INFO    | G30 side=A vs P6
+[14:10:16.877] P5 | VERIFY    | SUCCESS | G30 10 rounds: hash · card · score ok
+[14:10:16.877] P5 | RESULT    | INFO    | G30 DRAW me 0:0 -> D
+[14:10:17.194] P5 | MATCH     | INFO    | G31 side=A vs P7
+[14:10:23.394] P5 | VERIFY    | SUCCESS | G31 10 rounds: hash · card · score ok
+[14:10:23.394] P5 | RESULT    | INFO    | G31 WIN_A me 39:16 -> W
+[14:10:30.044] P5 | MATCH     | INFO    | G32 side=A vs P8
+[14:10:36.170] P5 | VERIFY    | SUCCESS | G32 10 rounds: hash · card · score ok
+[14:10:36.170] P5 | RESULT    | INFO    | G32 WIN_A me 38:17 -> W
+[14:10:43.042] P5 | MATCH     | INFO    | G11 side=B vs P2
+[14:10:49.321] P5 | VERIFY    | SUCCESS | G11 10 rounds: hash · card · score ok
+[14:10:49.322] P5 | RESULT    | INFO    | G11 WIN_B me 35:20 -> W
+[14:10:49.942] P5 | MATCH     | INFO    | G33 side=A vs P9
+[14:10:56.187] P5 | VERIFY    | SUCCESS | G33 10 rounds: hash · card · score ok
+[14:10:56.187] P5 | RESULT    | INFO    | G33 WIN_B me 15:32 -> L
+[14:10:56.491] P5 | TERMINATE | SUCCESS | rank=3 pts=19 W6 D1 L2

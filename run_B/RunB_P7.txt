@@ -1,0 +1,30 @@
+[14:09:36.621] P7 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=BIGSMALL server=13.61.180.113:9000
+[14:09:36.646] P7 | START     | INFO    | league start: 45 matches
+[14:09:36.647] P7 | MATCH     | INFO    | G20 side=B vs P3
+[14:09:42.886] P7 | VERIFY    | SUCCESS | G20 10 rounds: hash · card · score ok
+[14:09:42.886] P7 | RESULT    | INFO    | G20 WIN_A me 18:35 -> L
+[14:09:43.185] P7 | MATCH     | INFO    | G40 side=A vs P9
+[14:09:49.437] P7 | VERIFY    | SUCCESS | G40 10 rounds: hash · card · score ok
+[14:09:49.437] P7 | RESULT    | INFO    | G40 WIN_B me 7:40 -> L
+[14:09:49.844] P7 | MATCH     | INFO    | G13 side=B vs P2
+[14:09:56.119] P7 | VERIFY    | SUCCESS | G13 10 rounds: hash · card · score ok
+[14:09:56.128] P7 | RESULT    | INFO    | G13 WIN_B me 27:23 -> W
+[14:09:56.428] P7 | MATCH     | INFO    | G26 side=B vs P4
+[14:10:02.882] P7 | VERIFY    | SUCCESS | G26 10 rounds: hash · card · score ok
+[14:10:02.882] P7 | RESULT    | INFO    | G26 WIN_B me 28:27 -> W
+[14:10:03.194] P7 | MATCH     | INFO    | G41 side=A vs P10
+[14:10:09.544] P7 | VERIFY    | SUCCESS | G41 10 rounds: hash · card · score ok
+[14:10:09.544] P7 | RESULT    | INFO    | G41 WIN_B me 6:49 -> L
+[14:10:09.851] P7 | MATCH     | INFO    | G39 side=A vs P8
+[14:10:16.044] P7 | VERIFY    | SUCCESS | G39 10 rounds: hash · card · score ok
+[14:10:16.044] P7 | RESULT    | INFO    | G39 DRAW me 0:0 -> D
+[14:10:17.192] P7 | MATCH     | INFO    | G31 side=B vs P5
+[14:10:23.393] P7 | VERIFY    | SUCCESS | G31 10 rounds: hash · card · score ok
+[14:10:23.393] P7 | RESULT    | INFO    | G31 WIN_A me 16:39 -> L
+[14:10:23.692] P7 | MATCH     | INFO    | G05 side=B vs P1
+[14:10:29.998] P7 | VERIFY    | SUCCESS | G05 10 rounds: hash · card · score ok
+[14:10:29.998] P7 | RESULT    | INFO    | G05 WIN_A me 27:28 -> L
+[14:10:36.672] P7 | MATCH     | INFO    | G35 side=B vs P6
+[14:10:43.215] P7 | VERIFY    | SUCCESS | G35 10 rounds: hash · card · score ok
+[14:10:43.215] P7 | RESULT    | INFO    | G35 WIN_A me 11:36 -> L
+[14:10:56.490] P7 | TERMINATE | SUCCESS | rank=8 pts=7 W2 D1 L6

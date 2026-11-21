@@ -1,0 +1,8 @@
+[14:11:27.983] P8 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=BIGSMALL server=13.61.180.113:9000 fault=quit@21,6
+[14:11:28.012] P8 | START     | INFO    | league start: 45 matches
+[14:11:28.013] P8 | MATCH     | INFO    | G42 side=A vs P9
+[14:11:34.378] P8 | VERIFY    | SUCCESS | G42 10 rounds: hash · card · score ok
+[14:11:34.378] P8 | RESULT    | INFO    | G42 WIN_B me 6:40 -> L
+[14:11:34.770] P8 | MATCH     | INFO    | G21 side=B vs P3
+[14:11:37.992] P8 | FAULT     | WARN    | G21 r=6 QUIT sent (virtual disconnect, socket kept open)
+[14:12:34.694] P8 | TERMINATE | WARN    | left at G21 (virtual disconnect) W0 D0 L1

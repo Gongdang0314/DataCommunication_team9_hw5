@@ -1,0 +1,30 @@
+[14:17:25.439] P2 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=RANDOM server=13.61.180.113:9000
+[14:17:25.520] P2 | START     | INFO    | league start: 45 matches
+[14:17:25.521] P2 | MATCH     | INFO    | G09 side=A vs P3
+[14:17:31.933] P2 | VERIFY    | SUCCESS | G09 10 rounds: hash · card · score ok
+[14:17:31.933] P2 | RESULT    | INFO    | G09 WIN_B me 18:37 -> L
+[14:17:32.243] P2 | MATCH     | INFO    | G13 side=A vs P7
+[14:17:38.486] P2 | VERIFY    | SUCCESS | G13 10 rounds: hash · card · score ok
+[14:17:38.486] P2 | RESULT    | INFO    | G13 WIN_B me 23:27 -> L
+[14:17:44.988] P2 | MATCH     | INFO    | G00 side=B vs P1
+[14:17:51.394] P2 | VERIFY    | SUCCESS | G00 10 rounds: hash · card · score ok
+[14:17:51.396] P2 | RESULT    | INFO    | G00 WIN_B me 28:20 -> W
+[14:17:51.705] P2 | MATCH     | INFO    | G15 side=A vs P9
+[14:17:57.968] P2 | VERIFY    | SUCCESS | G15 10 rounds: hash · card · score ok
+[14:17:57.968] P2 | RESULT    | INFO    | G15 WIN_B me 10:45 -> L
+[14:17:58.272] P2 | MATCH     | INFO    | G16 side=A vs P10
+[14:18:04.724] P2 | VERIFY    | SUCCESS | G16 10 rounds: hash · card · score ok
+[14:18:04.724] P2 | RESULT    | INFO    | G16 WIN_B me 23:32 -> L
+[14:18:05.036] P2 | MATCH     | INFO    | G11 side=A vs P5
+[14:18:06.022] P2 | CRASH     | WARN    | G11 r=2 last=REVEAL (now)
+[14:18:10.391] P2 | REJOIN    | INFO    | REJOIN sent, dropped 4 buffered line(s), wait for next MATCH
+[14:18:12.336] P2 | MATCH     | INFO    | G12 side=A vs P6
+[14:18:18.579] P2 | VERIFY    | SUCCESS | G12 10 rounds: hash · card · score ok
+[14:18:18.579] P2 | RESULT    | INFO    | G12 WIN_B me 16:34 -> L
+[14:18:20.399] P2 | MATCH     | INFO    | G14 side=A vs P8
+[14:18:26.868] P2 | VERIFY    | SUCCESS | G14 10 rounds: hash · card · score ok
+[14:18:26.868] P2 | RESULT    | INFO    | G14 WIN_B me 15:31 -> L
+[14:18:40.755] P2 | MATCH     | INFO    | G10 side=A vs P4
+[14:18:46.972] P2 | VERIFY    | SUCCESS | G10 10 rounds: hash · card · score ok
+[14:18:46.972] P2 | RESULT    | INFO    | G10 WIN_A me 23:19 -> W
+[14:18:47.274] P2 | TERMINATE | SUCCESS | rank=9 pts=6 W2 D0 L6

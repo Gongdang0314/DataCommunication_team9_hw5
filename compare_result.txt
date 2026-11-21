@@ -1,0 +1,9 @@
+# HW#5 compare_result.txt
+TEAM 9
+RUN  TABLES  RESULTS   STANDINGS  VERIFY
+A    1       7e735e61  4e31bede   PASS
+B    4       7e735e61  4e31bede   PASS
+C    4       680279a8  360fd52e   PASS
+D    4       0740d6bd  5eef8361   PASS
+A=B  SAME -> PASS
+CHAOS D  장애 사건 5 (crash 3, quit 2) = 11.1%  |  영향 경기 6 + 부전패 4  |  정상 경기 35 (= Run A)  -> PASS

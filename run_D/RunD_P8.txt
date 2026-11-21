@@ -1,0 +1,30 @@
+[14:17:25.519] P8 | CONNECT   | SUCCESS | WELCOME seed=2026 timeout=3000ms strategy=BIGSMALL server=13.61.180.113:9000
+[14:17:25.522] P8 | START     | INFO    | league start: 45 matches
+[14:17:25.523] P8 | MATCH     | INFO    | G32 side=B vs P5
+[14:17:32.002] P8 | VERIFY    | SUCCESS | G32 10 rounds: hash · card · score ok
+[14:17:32.002] P8 | RESULT    | INFO    | G32 WIN_A me 17:38 -> L
+[14:17:32.316] P8 | MATCH     | INFO    | G21 side=B vs P3
+[14:17:38.792] P8 | VERIFY    | SUCCESS | G21 10 rounds: hash · card · score ok
+[14:17:38.792] P8 | RESULT    | INFO    | G21 WIN_B me 25:24 -> W
+[14:17:45.349] P8 | MATCH     | INFO    | G39 side=B vs P7
+[14:17:51.828] P8 | VERIFY    | SUCCESS | G39 10 rounds: hash · card · score ok
+[14:17:51.839] P8 | RESULT    | INFO    | G39 DRAW me 0:0 -> D
+[14:17:52.152] P8 | MATCH     | INFO    | G06 side=B vs P1
+[14:17:58.629] P8 | VERIFY    | SUCCESS | G06 10 rounds: hash · card · score ok
+[14:17:58.629] P8 | RESULT    | INFO    | G06 WIN_B me 26:8 -> W
+[14:17:59.291] P8 | MATCH     | INFO    | G36 side=B vs P6
+[14:18:05.776] P8 | VERIFY    | SUCCESS | G36 10 rounds: hash · card · score ok
+[14:18:05.776] P8 | RESULT    | INFO    | G36 WIN_A me 21:28 -> L
+[14:18:06.090] P8 | MATCH     | INFO    | G42 side=A vs P9
+[14:18:12.645] P8 | VERIFY    | SUCCESS | G42 10 rounds: hash · card · score ok
+[14:18:12.646] P8 | RESULT    | INFO    | G42 WIN_B me 6:40 -> L
+[14:18:13.610] P8 | MATCH     | INFO    | G43 side=A vs P10
+[14:18:20.087] P8 | VERIFY    | SUCCESS | G43 10 rounds: hash · card · score ok
+[14:18:20.087] P8 | RESULT    | INFO    | G43 WIN_B me 7:48 -> L
+[14:18:20.401] P8 | MATCH     | INFO    | G14 side=B vs P2
+[14:18:26.870] P8 | VERIFY    | SUCCESS | G14 10 rounds: hash · card · score ok
+[14:18:26.870] P8 | RESULT    | INFO    | G14 WIN_B me 31:15 -> W
+[14:18:27.184] P8 | MATCH     | INFO    | G27 side=B vs P4
+[14:18:33.660] P8 | VERIFY    | SUCCESS | G27 10 rounds: hash · card · score ok
+[14:18:33.660] P8 | RESULT    | INFO    | G27 WIN_A me 13:17 -> L
+[14:18:47.276] P8 | TERMINATE | SUCCESS | rank=6 pts=10 W3 D1 L5
