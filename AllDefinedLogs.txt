@@ -13,6 +13,7 @@ EVENT     STATUS   message                                                      
 INIT      SUCCESS  seed=S tables=M timeout=Tms run=X listen 0.0.0.0:PORT                     인자 확인 후 listen
 CONNECT   SUCCESS  Pk strategy=STRAT from IP:PORT (n/10)                                      HELLO 확인 → WELCOME 송신
 CONNECT   FAIL     bad or duplicate HELLO '<line>' from IP:PORT                               잘못된/중복 HELLO (연결 닫음)
+                    10초 안에 HELLO가 없으면 '<line>' = (no HELLO in 10s), 10명이 찬 뒤 남은 연결은 (league full)
 START     INFO     45 matches, M tables                                                       10명 모두 접속 → START 45 송신
 *MATCH    INFO     Gxx Pa(STRAT) vs Pb(STRAT) table=t                                         Table t가 경기 배정 · MATCH 송신
 *RESULT   SUCCESS  Gxx Pa sA:sB Pb OUTCOME confirm=X/Y NNNNms                                 CONFIRM 처리 끝 (X·Y ∈ OK·NO·DISPUTE·-)
@@ -35,6 +36,8 @@ STAT      INFO     Outcomes ... | forfeit REASON=n ... walkover=n | stale=n rejo
 STAT      INFO     CONFIRM OK=n NO=n DISPUTE=n -=n
 STAT      INFO     By strategy STRAT Ww Dd Ll avg score | ...
 TERMINATE SUCCESS  45 matches in x.xxs, avg concurrency k, stale n, tables joined              LEAGUE_END · BYE 송신 후 종료
+TERMINATE FAIL     table t crashed: <예외> (<위치>)                                          Table Thread 예외 (예외 상황)
+TERMINATE FAIL     league aborted (<원인>), finished n/45                                     예외로 리그 중단 → BYE 송신, 결과 파일 저장 안 함
 
 흐름: INIT → CONNECT×10 → START → (MATCH → [FORFEIT · DISCONN · STALE · REJOIN] → RESULT)×45 → TABLE×M → SAVE → STAT → TERMINATE
 
@@ -70,10 +73,12 @@ TERMINATE FAIL     server closed connection
 ====================================================================================================
 *PLAN      INFO    seed=S events=F (crash C, quit Q) = x.x% of 45  kinds=...  triggers(finished)=[...]
 CONNECT    SUCCESS Pk (n/10)                                                                    CTRL Pk 수신
+CONNECT    FAIL    bad or duplicate CTRL '<line>' from IP:PORT                                  잘못된/중복 CTRL (연결 닫음)
 *CRASH     WARN    #n Pk (PLAYING Gxx) finished≈f                                               CRASH 명령 송신
 *QUIT      WARN    #n Pk (PLAYING Gxx) finished≈f                                               QUIT 명령 송신
 *CRASH_ACK INFO    #n Pk crashed in Gxx                                                         STATE Pk CRASHED 수신 (4~5초 타이머 시작)
 *RESTART   INFO    #n Pk after d.dds                                                            RESTART 송신 (4.00 ~ 5.00)
+                    이미 리그가 끝난 선수면 뒤에 (not sent: Pk is END, league already over for it)
 *REJOINED  INFO    #n Pk back to IDLE                                                           복귀 후 STATE Pk IDLE 수신
 *QUIT_ACK  INFO    #n Pk reported QUIT                                                          STATE Pk QUIT 수신
 *SUMMARY   INFO    fired F/F events: crash C, quit Q  (x.x% of 45)

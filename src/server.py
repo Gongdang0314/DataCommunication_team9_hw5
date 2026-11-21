@@ -1,6 +1,6 @@
 # server.py — HW#5 League Server (Main Thread 1 + Table Thread M, Lobby = Mutex 1 + Condition Variable 2)
-# 사용법: python3 server.py --port 9500 --seed 2026 --tables 4 --timeout 3000 --run B --out ./run_B
-import argparse, socket, select, threading, time, hashlib, random, os, sys, re
+# 사용법: python3 server.py --port 9000 --seed 2026 --tables 4 --timeout 3000 --run B --out ./run_B
+import argparse, socket, select, threading, time, hashlib, random, os, sys, re, traceback
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from mybots import PAIRS, prize_order, STRATEGIES
@@ -78,6 +78,7 @@ class League:
                       "forfeit": {}, "walkover": 0, "tables": {}, "rejoin": 0}
         self.t_start = None
         self.t_last_end = None
+        self.error = None           # Table Thread에서 예상 못 한 예외 → Main이 리그를 중단한다 (무한 대기 방지)
 
     # ------------------------------------------------------------------ 공통 도우미
     def rel(self, t):
@@ -260,6 +261,19 @@ class League:
         return random.choice(cand) if cand else None
 
     def table(self, t):
+        try:
+            self._table(t)
+        except Exception as e:
+            fr = traceback.extract_tb(e.__traceback__)[-1]
+            why = f"{type(e).__name__}: {e}"
+            self.log("TERMINATE", "FAIL", f"table {t} crashed: {why} ({os.path.basename(fr.filename)}:{fr.lineno} {fr.name})")
+            with self.m:
+                if self.error is None:
+                    self.error = f"table {t}: {why}"
+                self.lobby_cv.notify_all()
+                self.done_cv.notify()
+
+    def _table(self, t):
         st = {"dur": [], "lat": [], "stale": 0, "conf": {"OK": 0, "NO": 0, "DISPUTE": 0, "-": 0},
               "forfeit": {}, "walkover": 0, "rejoin": 0}
         n = 0
@@ -268,7 +282,7 @@ class League:
             w0 = time.monotonic()
             with self.m:
                 while True:
-                    if self.assigned == 45:
+                    if self.assigned == 45 or self.error:
                         mid = None
                         break
                     mid = self.pick()
@@ -320,32 +334,61 @@ class League:
 
     # ------------------------------------------------------------------ Main
     def accept_players(self):
+        """HELLO는 select로 여러 연결을 함께 기다린다 (연결 하나가 HELLO를 안 보내도 다른 Player 접속이 막히지 않는다)"""
         ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         ls.bind(("0.0.0.0", self.a.port))
         ls.listen(16)
         self.log("INIT", "SUCCESS", f"seed={self.S} tables={self.M} timeout={self.a.timeout}ms run={self.run} "
                  f"listen 0.0.0.0:{self.a.port}")
+        waiting = {}                # sock → (PlayerConn 임시, HELLO 마감)
+
+        def reject(s, addr, line):
+            self.log("CONNECT", "FAIL", f"bad or duplicate HELLO '{line}' from {addr[0]}:{addr[1]}")
+            try:
+                s.sendall(b"ERROR bad HELLO\n")
+            except OSError:
+                pass
+            try:
+                s.close()
+            except OSError:
+                pass
+
         while len(self.players) < 10:
-            s, addr = ls.accept()
-            s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-            tmp = PlayerConn(0, "?", s, addr)
-            line = tmp.read_line(time.monotonic() + 10)
-            t = (line or "").split()
-            ok = (len(t) == 3 and t[0] == "HELLO" and re.match(r"^P([1-9]|10)$", t[1]) and t[2] in STRATEGIES)
-            if not ok or int(t[1][1:]) in self.players:
-                self.log("CONNECT", "FAIL", f"bad or duplicate HELLO '{line}' from {addr[0]}:{addr[1]}")
-                try:
-                    s.sendall(b"ERROR bad HELLO\n"); s.close()
-                except OSError:
-                    pass
-                continue
-            k = int(t[1][1:])
-            P = PlayerConn(k, t[2], s, addr)
-            P.buf = tmp.buf
-            self.players[k] = P
-            P.send(f"WELCOME P{k} {self.S} {self.a.timeout}")
-            self.log("CONNECT", "SUCCESS", f"P{k} strategy={t[2]} from {addr[0]}:{addr[1]} ({len(self.players)}/10)")
+            now = time.monotonic()
+            for s, (tmp, dl) in list(waiting.items()):
+                if now >= dl:
+                    del waiting[s]
+                    reject(s, tmp.addr, "(no HELLO in 10s)")
+            tmo = max(0.0, min((dl for _, dl in waiting.values()), default=now + 1.0) - now)
+            r, _, _ = select.select([ls] + list(waiting), [], [], tmo)
+            for s in r:
+                if s is ls:
+                    c, addr = ls.accept()
+                    c.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+                    waiting[c] = (PlayerConn(0, "?", c, addr), time.monotonic() + 10)
+                    continue
+                tmp, _ = waiting[s]
+                line = tmp.read_line(time.monotonic())        # 도착한 데이터만 읽고 바로 돌아온다
+                if line is None:
+                    continue                                   # 아직 한 줄이 다 오지 않음
+                del waiting[s]
+                t = line.split()
+                ok = (len(t) == 3 and t[0] == "HELLO" and re.match(r"^P([1-9]|10)$", t[1]) and t[2] in STRATEGIES)
+                if not ok or int(t[1][1:]) in self.players:
+                    reject(s, tmp.addr, line)
+                    continue
+                k = int(t[1][1:])
+                P = PlayerConn(k, t[2], s, tmp.addr)
+                P.buf = tmp.buf
+                self.players[k] = P
+                P.send(f"WELCOME P{k} {self.S} {self.a.timeout}")
+                self.log("CONNECT", "SUCCESS", f"P{k} strategy={t[2]} from {tmp.addr[0]}:{tmp.addr[1]} "
+                         f"({len(self.players)}/10)")
+                if len(self.players) == 10:
+                    break
+        for s, (tmp, _) in waiting.items():
+            reject(s, tmp.addr, "(league full)")
         ls.close()
 
     def run_league(self):
@@ -358,10 +401,25 @@ class League:
         for x in th:
             x.start()
         with self.m:
-            while self.finished < 45:
+            while self.finished < 45 and not self.error:
                 self.done_cv.wait()
+            err = self.error
         for x in th:
             x.join()
+        if err:
+            # 다른 테이블은 진행 중인 경기를 끝내고 나온다. 결과가 45경기가 아니므로 파일은 저장하지 않는다.
+            for P in self.players.values():
+                P.send("BYE")
+            time.sleep(0.3)
+            for P in self.players.values():
+                try:
+                    P.sock.shutdown(socket.SHUT_RDWR)
+                    P.sock.close()
+                except OSError:
+                    pass
+            self.log("TERMINATE", "FAIL", f"league aborted ({err}), finished {self.finished}/45")
+            self.log.close()
+            sys.exit(1)
         # ---- Lock 밖에서 저장 ----
         rt, sd, table = self.build_files()
         ml = f"LEAGUE seed={self.S} tables={self.M}\n" + "".join("\n".join(self.mlog[m]) + "\n" for m in range(45))

@@ -28,7 +28,7 @@ def main():
         print(f"  confirm not OK/OK: {len(bad)} {bad[:8]}  VERIFY FAIL: {vf}")
         for l in league.splitlines():
             if "| STAT" in l or "| FORFEIT" in l or "| DISCONN" in l or "| SAVE" in l:
-                print("   ", l.split("| ", 3)[-1] if "| STAT" not in l else l.split("| ", 3)[-1])
+                print("   ", l.split("| ", 3)[-1])
         if X in "AB":
             ok &= not bad and vf == 0
     if "A" in runs and "D" in runs:

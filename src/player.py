@@ -1,5 +1,5 @@
 # player.py — HW#5 Player (bot). Main Thread = Server 연결, (Run D) 제어 Thread = Crasher 연결
-# 사용법: python3 player.py --host H --port 9500 --id 3 --strategy MATCH --think 18,22 --run B --out ./logs
+# 사용법: python3 player.py --host H --port 9000 --id 3 --strategy MATCH --think 18,22 --run B --out ./logs
 #         [--fault slow@11,4 | badcard@30,7 | badhash@40,3 | quit@21,6]  [--crasher 127.0.0.1:9700]
 import argparse, socket, select, threading, time, hashlib, secrets, random, os, sys
 
@@ -101,33 +101,46 @@ class Player:
 
     # -------------------------------------------------------------- 수신
     def read_line(self, timeout):
+        """한 줄. None = timeout, '' = 연결 끊김(빈 줄은 건너뛴다). 소켓 오류(RST 등)도 끊김으로 본다."""
         while True:
             i = self.buf.find(b"\n")
             if i >= 0:
                 line, self.buf = self.buf[:i], self.buf[i + 1:]
-                return line.decode("utf-8", "replace").strip()
-            r, _, _ = select.select([self.sock], [], [], timeout)
-            if not r:
-                return None
-            data = self.sock.recv(65536)
+                line = line.decode("utf-8", "replace").strip()
+                if line:
+                    return line
+                continue
+            try:
+                r, _, _ = select.select([self.sock], [], [], timeout)
+                if not r:
+                    return None
+                data = self.sock.recv(65536)
+            except (OSError, ValueError):
+                return ""
             if not data:
                 return ""
             self.buf += data
             timeout = 0
 
     def drain(self):
-        """복귀 직전: 버퍼에 쌓인 줄과 소켓에 이미 도착한 줄을 모두 버린다"""
-        n = self.buf.count(b"\n")
-        self.buf = b""
+        """복귀 직전: 버퍼에 쌓인 줄과 소켓에 이미 도착한 줄을 버린다.
+        단, 리그 종료 줄(LEAGUE_END · BYE)과 아직 덜 받은 마지막 줄 조각은 남긴다."""
+        data = self.buf
         while True:
-            r, _, _ = select.select([self.sock], [], [], 0)
-            if not r:
+            try:
+                r, _, _ = select.select([self.sock], [], [], 0)
+                if not r:
+                    break
+                d = self.sock.recv(65536)
+            except (OSError, ValueError):
                 break
-            data = self.sock.recv(65536)
-            if not data:
+            if not d:
                 break
-            n += data.count(b"\n")
-        return n
+            data += d
+        *lines, partial = data.split(b"\n")
+        keep = [l for l in lines if l.split()[:1] in ([b"LEAGUE_END"], [b"BYE"])]
+        self.buf = b"".join(l + b"\n" for l in keep) + partial
+        return sum(1 for l in lines if l.strip()) - len(keep)
 
     # -------------------------------------------------------------- 실행
     def run(self):
@@ -322,7 +335,7 @@ class Player:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--host", required=True)
-    ap.add_argument("--port", type=int, default=9500)
+    ap.add_argument("--port", type=int, default=9000)
     ap.add_argument("--id", type=int, required=True, choices=range(1, 11))
     ap.add_argument("--strategy", required=True, choices=["RANDOM", "MATCH", "PLUS1", "BIGSMALL", "TEAM"])
     ap.add_argument("--think", default="18,22")

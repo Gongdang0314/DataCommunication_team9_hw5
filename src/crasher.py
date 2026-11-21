@@ -2,7 +2,7 @@
 # 사용법: python3 crasher.py --port 9700 --run D --out ./logs [--seed 11]
 # Thread: 수신 Thread × 10 (STATE 읽기) · 이벤트 Thread(main) · crash마다 타이머 Thread
 # 공유 상태(state · mid_of · faulty · ends)는 Mutex 1개 + Condition Variable 1개로 보호, busy-wait 없음.
-import argparse, socket, threading, random, time, os, sys
+import argparse, socket, threading, random, time, os, sys, re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from mybots import PAIRS
@@ -102,12 +102,15 @@ class Crasher:
         time.sleep(d)
         with self.m:
             el = time.monotonic() - self.crashed_at[k]
-            if self.state[k] == "CRASHED":
+            sent = self.state[k] == "CRASHED"
+            if sent:
                 try:
                     self.conn[k].sendall(b"RESTART\n")
                 except OSError:
-                    pass
-        self.log("RESTART", "INFO", f"#{n} P{k} after {el:.2f}s")
+                    sent = False
+            now = self.state[k]
+        self.log("RESTART", "INFO", f"#{n} P{k} after {el:.2f}s" +
+                 ("" if sent else f" (not sent: P{k} is {now}, league already over for it)"))
 
     def rng_delay(self):
         with self.m:
@@ -129,18 +132,23 @@ class Crasher:
         pending = {}
         while len(self.conn) < 10:
             s, addr = ls.accept()
+            s.settimeout(10)                         # CTRL 줄을 안 보내는 연결이 다른 Player 접속을 막지 않게
             buf = b""
-            while b"\n" not in buf:
-                d = s.recv(1024)
-                if not d:
-                    break
-                buf += d
-            if b"\n" not in buf:
-                s.close()
-                continue
-            line, buf = buf.split(b"\n", 1)
-            t = line.decode().split()
-            if len(t) != 2 or t[0] != "CTRL" or not t[1].startswith("P"):
+            try:
+                while b"\n" not in buf:
+                    d = s.recv(1024)
+                    if not d:
+                        break
+                    buf += d
+            except OSError:
+                pass
+            s.settimeout(None)
+            line, _, buf = buf.partition(b"\n")
+            t = line.decode("utf-8", "replace").split()
+            if (not _ or len(t) != 2 or t[0] != "CTRL" or not re.match(r"^P([1-9]|10)$", t[1])
+                    or int(t[1][1:]) in self.conn):
+                self.log("CONNECT", "FAIL", f"bad or duplicate CTRL '{line[:40].decode('utf-8', 'replace')}' "
+                         f"from {addr[0]}:{addr[1]}")
                 s.close()
                 continue
             k = int(t[1][1:])

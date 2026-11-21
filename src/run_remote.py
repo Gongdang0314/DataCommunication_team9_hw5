@@ -1,7 +1,7 @@
 # run_remote.py — 정식 Run 실행기: 원격(EC2) Server를 ssh로 시작 → (Run D) 로컬 Crasher → 로컬 Player 10개
 #                 → Server 종료 대기 → 결과를 scp로 내려받아 Player · Crasher 로그와 합쳐 run_X/ 를 만든다.
 # 사용법: python run_remote.py <Run A|B|C|D> <outroot> --key HaEeee.pem --host 13.61.180.113 [--user ubuntu]
-#                             [--port 9500] [--connect host:port] [--crasher-seed N]
+#                             [--port 9000] [--connect host:port] [--crasher-seed N]
 #   --connect : Player가 접속할 주소 (기본 = --host:--port). 서버 실행 위치는 항상 --host.
 import sys, os, subprocess, argparse, time, shutil, glob
 
