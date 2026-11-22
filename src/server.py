@@ -8,6 +8,7 @@ from hw5log import Logger
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 HEX16 = re.compile(r"^[0-9a-f]{16}$")
+CARD = re.compile(r"^(0|-?[1-9][0-9]*)$")     # 표준 10진 정수만 ("05" · "+5"는 BAD_MSG: REVEALS는 int로 다시 쓰므로 hash가 어긋난다)
 sha = lambda s: hashlib.sha256(s.encode()).hexdigest()
 h8 = lambda s: sha(s)[:8]
 
@@ -184,7 +185,7 @@ class League:
                 for side, P, k in (("A", A, a), ("B", B, b)):
                     tk, f = self.wait_for(P, "REVEAL", mid, r, dl, st)
                     if f is None:
-                        if len(tk) != 5 or not HEX16.match(tk[4]) or not re.match(r"^-?\d+$", tk[3]):
+                        if len(tk) != 5 or not HEX16.match(tk[4]) or not CARD.match(tk[3]):
                             f = "BAD_MSG"
                         elif sha(f"{tk[3]}:{tk[4]}") != cm[side]:
                             f = "BAD_HASH"
